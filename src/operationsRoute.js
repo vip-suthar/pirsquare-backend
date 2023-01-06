@@ -12,7 +12,6 @@ router.post('/text_file_to_audio', (req, res) => {
         const filepath = path.join(__dirname, '../', req.body.file_path);
 
         const data = fs.readFileSync(filepath, 'utf8');
-        console.log(data);
         const gtts = new gTTS(data, 'en');
         const audio_filepath = path.join(config.DEST, uuidv4() + '.mp3');
         gtts.save(audio_filepath, function (err, result) {
@@ -51,7 +50,7 @@ router.post('/merge_image_and_audio', async (req, res) => {
                 res.json({
                     status: "ok",
                     message: "Video Created Successfully",
-                    video_file_path: path.join(config.DEST, path.basename(videooutfilepath))
+                    video_file_path: path.join(config.DEST, path.basename(videooutfilepath)).replaceAll("\\", "/")
                 })
             })
 
@@ -80,7 +79,7 @@ router.post('/merge_video_and_audio', async (req, res) => {
                 res.json({
                     status: "ok",
                     message: "Video and Audio Merged Successfully",
-                    video_file_path: path.join(config.DEST, path.basename(videooutfilepath))
+                    video_file_path: path.join(config.DEST, path.basename(videooutfilepath)).replaceAll("\\", "/")
                 })
             })
 
@@ -111,7 +110,7 @@ router.post('/merge_all_video', async (req, res) => {
                 res.json({
                     status: "ok",
                     message: "Merged All Video Successfully",
-                    video_file_path: path.join(config.DEST, path.basename(videooutfilepath))
+                    video_file_path: path.join(config.DEST, path.basename(videooutfilepath)).replaceAll("\\", "/")
                 })
             });
 
