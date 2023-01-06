@@ -19,6 +19,9 @@ app.use("/upload_file", uploadRoute);
 app.use("/download_file", downloadRoute);
 app.use("/my_upload_file", uploadFilesListRoute);
 app.use("/", operationsRoute);
+app.use("*", (req, res) => {
+    res.send("Hello, world!");
+})
 
 app.listen(config.PORT, ()=> {
     console.log(`listening on port ${config.PORT}`);
